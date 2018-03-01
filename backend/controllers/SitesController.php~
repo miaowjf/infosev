@@ -125,8 +125,13 @@ class SitesController extends Controller
              
             if($model->save()){ 
                 foreach($imagesname as $image){
-                    if (file_exists(Yii::getAlias('@frontend').'/web/uploadimages/'.$image)){
-                        unlink(Yii::getAlias('@frontend').'/web/uploadimages/'.$image);
+                    if ($image!==''){
+                    $file_name = Yii::getAlias('@frontend').'/web/uploadimages/'.$image;
+                    if (file_exists($file_name)){
+                        $myfile=fopen($file_name,'a');
+                        fclose($myfile);
+                        unlink($file_name);
+                    }
                     }
                 }
                 return $this->redirect(['view', 'id' => $model->ID]);
@@ -147,7 +152,18 @@ class SitesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+                foreach($imagesname as $image){
+                    if ($image!==''){
+                    $file_name = Yii::getAlias('@frontend').'/web/uploadimages/'.$image;
+                    if (file_exists($file_name)){
+                        $myfile=fopen($file_name,'a');
+                        fclose($myfile);
+                        unlink($file_name);
+                    }
+                    }
+                }
+        $model->delete();
 
         return $this->redirect(['index']);
     }
