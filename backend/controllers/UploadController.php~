@@ -28,7 +28,7 @@ class UploadController extends Controller
             foreach($images as $image){
                 $name=Yii::$app->getSecurity()->generateRandomString().$image->name;
                 $model->ZhaoPian=$model->ZhaoPian.','.$name.',';
-                $path=Yii::getAlias('@frontend').'/web/uploadimages/'.$name;
+                //$path=Yii::getAlias('@frontend').'/web/uploadimages/'.$name;
                 //$image->saveAs($path);
             }
        return json_encode(['error'=>$model->ZhaoPian]);

@@ -27,7 +27,7 @@ class UploadController extends Controller
             $images=UploadedFile::getInstances($model,'imageFile');
             foreach($images as $image){
                 $name=Yii::$app->getSecurity()->generateRandomString().$image->name;
-                $model->ZhaoPian=$model->ZhaoPian.','.$name.',';
+                $model->ZhaoPian=$model->ZhaoPian.','.$name;
                 //$path=Yii::getAlias('@frontend').'/web/uploadimages/'.$name;
                 //$image->saveAs($path);
             }

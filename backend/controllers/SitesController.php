@@ -72,14 +72,14 @@ class SitesController extends Controller
             $images=UploadedFile::getInstances($model,'imageFile');
             foreach($images as $image){
                 $name=Yii::$app->getSecurity()->generateRandomString().$image->name;
-                $model->ZhaoPian=$model->ZhaoPian.','.$name.',';
+                $model->ZhaoPian=$model->ZhaoPian.','.$name;
                 $path=Yii::getAlias('@frontend').'/web/uploadimages/'.$name;
                 $image->saveAs($path);
-            if($model->save(){ 
+            }
+            if($model->save()){ 
                 return $this->redirect(['view', 'id' => $model->ID]);
             }
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -112,9 +112,25 @@ class SitesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+        $imagesname=explode(',',$model->ZhaoPian);
+        if ($model->load(Yii::$app->request->post())) {
+             $images=UploadedFile::getInstances($model,'imageFile');
+             $model->ZhaoPian='';
+            foreach($images as $image){
+                $name=Yii::$app->getSecurity()->generateRandomString().$image->name;
+                $model->ZhaoPian=$model->ZhaoPian.','.$name;
+                $path=Yii::getAlias('@frontend').'/web/uploadimages/'.$name;
+                $image->saveAs($path);
+            }
+             
+            if($model->save()){ 
+                foreach($imagesname as $image){
+                    if (file_exists(Yii::getAlias('@frontend').'/web/uploadimages/'.$image)){
+                        unlink(Yii::getAlias('@frontend').'/web/uploadimages/'.$image);
+                    }
+                }
+                return $this->redirect(['view', 'id' => $model->ID]);
+            }
         }
 
         return $this->render('update', [
