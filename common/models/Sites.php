@@ -1,0 +1,116 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "sites".
+ *
+ * @property int $ID
+ * @property string $ShouFeiXiangMuBianHao 收费项目编号
+ * @property string $SuoZaiLuXianBianHao 所在路线编号
+ * @property string $ShouFeiZhanZhuangHao 收费站桩号
+ * @property string $ShouFeiZhanBianMa 收费站编码
+ * @property string $ShouFeiZhanMingChen 收费站名称
+ * @property string $ShouFeiZhanJianChen 收费站简称
+ * @property string $SuoZaiLuXianJiShuDengJi 所在路线技术等级
+ * @property string $ShouFeiZhanShouFeiXingZhi 收费站收费性质
+ * @property string $ShouFeiZhanLeiXing 收费站类型
+ * @property string $ShouFeiZhanWeiZhiLeiXing 收费站位置类型
+ * @property string $ShouFeiFangXiang 收费方向
+ * @property int $RuKouCheDaoShu 入口车道数
+ * @property int $ETCRuKouCheDaoShu ETC入口车道数
+ * @property int $ChuKouCheDaoShu 出口车道数
+ * @property int $ETCChuKouCheDaoShu ETC出口车道数
+ * @property string $JingDu 经度
+ * @property string $WeiDu 纬度
+ * @property string $BeiZhu 备注
+ * @property string $ZhaoPian 照片
+ *
+ * @property Routes $suoZaiLuXianBianHao
+ * @property Projects $shouFeiXiangMuBianHao
+ */
+class Sites extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public $imageFile;
+    public static function tableName()
+    {
+        return 'sites';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            //[['ID'], 'required'],
+            [['ID', 'RuKouCheDaoShu', 'ETCRuKouCheDaoShu', 'ChuKouCheDaoShu', 'ETCChuKouCheDaoShu'], 'integer'],
+            [['ShouFeiZhanZhuangHao', 'JingDu', 'WeiDu'], 'number'],
+            [['ShouFeiXiangMuBianHao'], 'string', 'max' => 11],
+            [['SuoZaiLuXianBianHao'], 'string', 'max' => 5],
+            [['ShouFeiZhanBianMa'], 'string', 'max' => 16],
+            [['ShouFeiZhanMingChen'], 'string', 'max' => 20],
+            [['ShouFeiZhanJianChen'], 'string', 'max' => 10],
+            [['SuoZaiLuXianJiShuDengJi', 'ShouFeiZhanShouFeiXingZhi', 'ShouFeiZhanLeiXing', 'ShouFeiFangXiang'], 'string', 'max' => 2],
+            [['ShouFeiZhanWeiZhiLeiXing'], 'string', 'max' => 7],
+            [['BeiZhu'], 'string', 'max' => 114],
+            [['ID'], 'unique'],
+            [['ZhaoPian'], 'string', 'max' => 4000],
+            [['SuoZaiLuXianBianHao'], 'exist', 'skipOnError' => true, 'targetClass' => Routes::className(), 'targetAttribute' => ['SuoZaiLuXianBianHao' => 'LuXianBianHao']],
+            [['ShouFeiXiangMuBianHao'], 'exist', 'skipOnError' => true, 'targetClass' => Projects::className(), 'targetAttribute' => ['ShouFeiXiangMuBianHao' => 'ShouFeiXiangMuBianHao']],
+            [['imageFile'],'file','extensions' => 'png, jpg', 'maxFiles' => 4],
+            [['imageFile'],'safe'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'ID' => 'ID',
+            'ShouFeiXiangMuBianHao' => '收费项目编号',
+            'SuoZaiLuXianBianHao' => '所在路线编号',
+            'ShouFeiZhanZhuangHao' => '收费站桩号',
+            'ShouFeiZhanBianMa' => '收费站编码',
+            'ShouFeiZhanMingChen' => '收费站名称',
+            'ShouFeiZhanJianChen' => '收费站简称',
+            'SuoZaiLuXianJiShuDengJi' => '所在路线技术等级',
+            'ShouFeiZhanShouFeiXingZhi' => '收费站收费性质',
+            'ShouFeiZhanLeiXing' => '收费站类型',
+            'ShouFeiZhanWeiZhiLeiXing' => '收费站位置类型',
+            'ShouFeiFangXiang' => '收费方向',
+            'RuKouCheDaoShu' => '入口车道数',
+            'ETCRuKouCheDaoShu' => 'ETC入口车道数',
+            'ChuKouCheDaoShu' => '出口车道数',
+            'ETCChuKouCheDaoShu' => 'ETC出口车道数',
+            'JingDu' => '经度',
+            'WeiDu' => '纬度',
+            'BeiZhu' => '备注',
+            'ZhaoPian' => '照片',
+            'imageFile'=>'上传照片',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSuoZaiLuXianBianHao0()
+    {
+        return $this->hasOne(Routes::className(), ['LuXianBianHao' => 'SuoZaiLuXianBianHao']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getShouFeiXiangMuBianHao0()
+    {
+        return $this->hasOne(Projects::className(), ['ShouFeiXiangMuBianHao' => 'ShouFeiXiangMuBianHao']);
+    }
+}

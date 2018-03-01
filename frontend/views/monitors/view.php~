@@ -1,0 +1,34 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+/* @var $this yii\web\View */
+/* @var $model common\models\monitors */
+
+$this->title = $model->路线编号0->路线名称;
+$this->params['breadcrumbs'][] = ['label' => '监控设备管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="monitors-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'ID',
+            '项目编号',
+            '路线编号',
+            '位置桩号',
+            '监控设施编码',
+            '设备类型代码',
+            '设备位置',
+            '管理单位',
+            '设备状态',
+            '备注',
+        ],
+    ]) ?>
+
+</div>

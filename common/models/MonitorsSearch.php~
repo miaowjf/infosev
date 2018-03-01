@@ -1,0 +1,78 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use common\models\monitors;
+
+/**
+ * MonitorsSearch represents the model behind the search form of `common\models\monitors`.
+ */
+class MonitorsSearch extends monitors
+{
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+           [['ID', 'SheBeiLeiXingDaiMa'], 'integer'],
+           [['XiangMuBianHao', 'LuXianBianHao', 'JianKongSheShiBianMa', 'SheBeiWeiZhi', 'GuanLiDanWei', 'SheBeiZhuangTai', 'BeiZhu'], 'safe'],
+           [['WeiZhiZhuangHao'], 'number'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = monitors::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'ID' => $this->ID,
+            'WeiZhiZhuangHao' => $this->WeiZhiZhuangHao,
+            'SheBeiLeiXingDaiMa' => $this->SheBeiLeiXingDaiMa,
+        ]);
+
+        $query->andFilterWhere(['like', '项目编号', $this->项目编号])
+            ->andFilterWhere(['like', '路线编号', $this->路线编号])
+            ->andFilterWhere(['like', '监控设施编码', $this->监控设施编码])
+            ->andFilterWhere(['like', '设备位置', $this->设备位置])
+            ->andFilterWhere(['like', '管理单位', $this->管理单位])
+            ->andFilterWhere(['like', '设备状态', $this->设备状态])
+            ->andFilterWhere(['like', '备注', $this->备注]);
+
+        return $dataProvider;
+    }
+}

@@ -1,0 +1,59 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model common\models\projects */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="projects-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'ShouFeiXiangMuBianHao')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShouFeiXiangMuMingChen')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShouFeiXiangMuXingZhi')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShouFeiXiangMuQiDianMingChen')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShouFeiXiangMuZhiDianMingChen')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShouFeiXiangMuJiShuDengJi')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShouFeiXiangMuXingZhengDengJi')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'GuanLiJingYingDanWeiMingChen')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ZuZhiJiGouDaiMa')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'GuanLiJingYingDanWeiXingZhiBianMa')->textInput() ?>
+
+    <?= $form->field($model, 'PiZhunShouFeiWenHao')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShouFeiPiFuWenJianMingChen')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'PiZhunShouFeiQiShiShiJian')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'PiZhunShouFeiZhongZhiShiJian')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'JianChengTongCheShiJian')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShiFuShuYuZhengFuHuaiDaiGongLuZhuanWeiDeJingYingXingGongLu')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'XianXingShouFeiBiaoZhunPiZhunShiJian')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShiFuTongDaiTongHuaiXiangMu')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ShouFeiLiChengHeJi')->textInput(['maxlength' => true]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

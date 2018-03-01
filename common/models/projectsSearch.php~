@@ -1,0 +1,86 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use common\models\projects;
+
+/**
+ * projectsSearch represents the model behind the search form of `common\models\projects`.
+ */
+class projectsSearch extends projects
+{
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+           [['ShouFeiXiangMuBianHao', 'ShouFeiXiangMuMingChen', 'ShouFeiXiangMuXingZhi', 'ShouFeiXiangMuQiDianMingChen', 'ShouFeiXiangMuZhiDianMingChen', 'ShouFeiXiangMuJiShuDengJi', 'ShouFeiXiangMuXingZhengDengJi', 'GuanLiJingYingDanWeiMingChen', 'ZuZhiJiGouDaiMa', 'PiZhunShouFeiWenHao', 'ShouFeiPiFuWenJianMingChen', 'PiZhunShouFeiQiShiShiJian', 'PiZhunShouFeiZhongZhiShiJian', 'JianChengTongCheShiJian', 'ShiFuShuYuZhengFuHuaiDaiGongLuZhuanWeiDeJingYingXingGongLu', 'XianXingShouFeiBiaoZhunPiZhunShiJian', 'ShiFuTongDaiTongHuaiXiangMu', 'ShouFeiLiChengHeJi'], 'safe'],
+           [['GuanLiJingYingDanWeiXingZhiBianMa'], 'integer'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = projects::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'GuanLiJingYingDanWeiXingZhiBianMa' => $this->管理经营单位性质编码,
+        ]);
+
+        $query->andFilterWhere(['like', 'ShouFeiXiangMuBianHao', $this->收费项目编号])
+            ->andFilterWhere(['like', 'ShouFeiXiangMuMingChen', $this->收费项目名称])
+            ->andFilterWhere(['like', 'ShouFeiXiangMuXingZhi', $this->收费项目性质])
+            ->andFilterWhere(['like', 'ShouFeiXiangMuQiDianMingChen', $this->收费项目起点名称])
+            ->andFilterWhere(['like', 'ShouFeiXiangMuZhiDianMingChen', $this->收费项目止点名称])
+            ->andFilterWhere(['like', 'ShouFeiXiangMuJiShuDengJi', $this->收费项目技术等级])
+            ->andFilterWhere(['like', 'ShouFeiXiangMuXingZhengDengJi', $this->收费项目行政等级])
+            ->andFilterWhere(['like', 'GuanLiJingYingDanWeiMingChen', $this->管理经营单位名称])
+            ->andFilterWhere(['like', 'ZuZhiJiGouDaiMa', $this->组织机构代码])
+            ->andFilterWhere(['like', 'PiZhunShouFeiWenHao', $this->批准收费文号])
+            ->andFilterWhere(['like', 'ShouFeiPiFuWenJianMingChen', $this->收费批复文件名称])
+            ->andFilterWhere(['like', 'PiZhunShouFeiQiShiShiJian', $this->批准收费起始时间]) 
+            ->andFilterWhere(['like', 'PiZhunShouFeiZhongZhiShiJian', $this->批准收费终止时间]) 
+            ->andFilterWhere(['like', 'JianChengTongCheShiJian', $this->建成通车时间]) 
+            ->andFilterWhere(['like', 'ShiFuShuYuZhengFuHuaiDaiGongLuZhuanWeiDeJingYingXingGongLu', $this->ShiFuShuYuZhengFuHuaiDaiGongLuZhuanWeiDeJingYingXingGongLu])
+            ->andFilterWhere(['like', 'XianXingShouFeiBiaoZhunPiZhunShiJian', $this->XianXingShouFeiBiaoZhunPiZhunShiJian])
+            ->andFilterWhere(['like', 'ShiFuTongDaiTongHuaiXiangMu', $this->ShiFuTongDaiTongHuaiXiangMu])
+            ->andFilterWhere(['like', 'ShouFeiLiChengHeJi', $this->ShouFeiLiChengHeJi]);
+
+        return $dataProvider;
+    }
+}

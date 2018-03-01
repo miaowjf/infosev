@@ -1,0 +1,97 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use common\models\sites;
+
+/**
+ * sitesSearch represents the model behind the search form of `common\models\sites`.
+ */
+class sitesSearch extends sites
+{
+    /**
+     * @inheritdoc
+     */
+    public function attributes(){
+        return array_merge(parent::attributes(),['路线名称']);
+    }
+    public function rules()
+    {
+        return [
+            [['ID', '入口车道数', 'ETC入口车道数', '出口车道数', 'ETC出口车道数'], 'integer'],
+            [['收费项目编号', '所在路线编号', '收费站编码', '路线名称','收费站名称', '收费站简称', '所在路线技术等级', '收费站收费性质', '收费站类型', '收费站位置类型', '收费方向', '备注'], 'safe'],
+            [['收费站桩号', '经度', '纬度'], 'number'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = sites::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'ID' => $this->ID,
+            '收费站桩号' => $this->收费站桩号,
+            '入口车道数' => $this->入口车道数,
+            'ETC入口车道数' => $this->ETC入口车道数,
+            '出口车道数' => $this->出口车道数,
+            'ETC出口车道数' => $this->ETC出口车道数,
+            '经度' => $this->经度,
+            '纬度' => $this->纬度,
+        ]);
+
+        $query->andFilterWhere(['like', '收费项目编号', $this->收费项目编号])
+            ->andFilterWhere(['=', '所在路线编号', $this->所在路线编号])
+            ->andFilterWhere(['like', '收费站编码', $this->收费站编码])
+            ->andFilterWhere(['like', '收费站名称', $this->收费站名称])
+            ->andFilterWhere(['like', '收费站简称', $this->收费站简称])
+            ->andFilterWhere(['like', '所在路线技术等级', $this->所在路线技术等级])
+            ->andFilterWhere(['like', '收费站收费性质', $this->收费站收费性质])
+            ->andFilterWhere(['like', '收费站类型', $this->收费站类型])
+            ->andFilterWhere(['like', '收费站位置类型', $this->收费站位置类型])
+            ->andFilterWhere(['like', '收费方向', $this->收费方向])
+            ->andFilterWhere(['like', '备注', $this->备注]);
+        $query->join('inner join','routes','routes.路线编号=sites.所在路线编号');
+        $query->andFilterWhere(['like','routes.路线名称',$this->路线名称]);
+
+        $dataProvider->sort->attributes['路线名称']=[
+            'asc'=>['routes.路线名称'=>'SORT_ASC'],
+            'desc'=>['routes.路线名称'=>'SORT_DESC'],
+        
+        ];
+        return $dataProvider;
+    }
+}

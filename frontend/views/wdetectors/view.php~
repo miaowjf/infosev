@@ -1,0 +1,45 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+/* @var $this yii\web\View */
+/* @var $model common\models\wdetectors */
+
+$this->title = $model->路线编号0->路线名称;
+$this->params['breadcrumbs'][] = ['label' => '气象设备管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="wdetectors-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'ID',
+            '项目编号',
+            '路线编号',
+            '位置桩号',
+            '气象检测器编码',
+            '所在位置描述',
+            '天气现象',
+            '温度',
+            '湿度',
+            '风',
+            '气压',
+            '降水',
+            '能见度',
+            '路面状态',
+            '地温',
+            '辐射',
+            '供电方式',
+            '数据传输方式',
+            '数据采集间隔',
+            '设置位置',
+            '备注',
+        ],
+    ]) ?>
+
+</div>

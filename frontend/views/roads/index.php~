@@ -1,0 +1,45 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+use common\models\projects;
+use common\models\routes;
+
+/* @var $this yii\web\View */
+/* @var $searchModel common\models\roadsSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = '收费路段汇总';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="roads-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            //['class' => 'yii\grid\SerialColumn'],
+
+            //'ID',
+            ['attribute'=>'ShouFeiXiangMuBianHao','value'=>'shouFeiXiangMuBianHao0.ShouFeiXiangMuMingChen','filter'=>projects::find()->select(['ShouFeiXiangMuMingChen','ShouFeiXiangMuBianHao'])->indexby('ShouFeiXiangMuBianHao')->column()],
+            ['attribute'=>'LuXianBianMa','value'=>'luXianBianMa0.路线名称','filter'=>routes::find()->select(['路线名称','路线编号'])->indexby('路线编号')->column()],
+            '路线名称',
+            //'起点名称',
+            //'起点桩号',
+            //'止点名称',
+            //'止点桩号',
+            //'技术等级',
+            '车道数',
+            '路段总里程',
+            '桥梁里程',
+            '隧道里程',
+            //'备注',
+
+            ['class' => 'yii\grid\ActionColumn','template'=>'{view}'],
+        ],
+    ]); ?>
+</div>

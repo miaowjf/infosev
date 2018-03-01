@@ -1,0 +1,88 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use common\models\wdetectors;
+
+/**
+ * wdetectorsSearch represents the model behind the search form of `common\models\wdetectors`.
+ */
+class wdetectorsSearch extends wdetectors
+{
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+           [['ID', 'ShuJuCaiJiJianGe'], 'integer'],
+           [['XiangMuBianHao', 'LuXianBianHao', 'QiXiangJianCeQiBianMa', 'SuoZaiWeiZhiMiaoShu', 'TianQiXianXiang', 'WenDu', 'ShiDu', 'Feng', 'QiYa', 'JiangShui', 'NenJianDu', 'LuMianZhuangTai', 'DiWen', 'FuShe', 'GongDianFangShi', 'ShuJuChuanShuFangShi', 'SheZhiWeiZhi', 'BeiZhu'], 'safe'],
+           [['WeiZhiZhuangHao'], 'number'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = wdetectors::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'ID' => $this->ID,
+           'WeiZhiZhuangHao' => $this->WeiZhiZhuangHao,
+           'ShuJuCaiJiJianGe' => $this->ShuJuCaiJiJianGe,
+        ]);
+	       $query->andFilterWhere(['like', 'XiangMuBianHao', $this->XiangMuBianHao])
+           ->andFilterWhere(['=', 'LuXianBianHao', $this->LuXianBianHao])
+           ->andFilterWhere(['like', 'QiXiangJianCeQiBianMa', $this->QiXiangJianCeQiBianMa])
+           ->andFilterWhere(['like', 'SuoZaiWeiZhiMiaoShu', $this->SuoZaiWeiZhiMiaoShu])
+           ->andFilterWhere(['like', 'TianQiXianXiang', $this->TianQiXianXiang])
+           ->andFilterWhere(['like', 'WenDu', $this->WenDu])
+           ->andFilterWhere(['like', 'ShiDu', $this->ShiDu])
+           ->andFilterWhere(['like', 'Feng', $this->Feng])
+           ->andFilterWhere(['like', 'QiYa', $this->QiYa])
+           ->andFilterWhere(['like', 'JiangShui', $this->JiangShui])
+           ->andFilterWhere(['like', 'NenJianDu', $this->NenJianDu])
+           ->andFilterWhere(['like', 'LuMianZhuangTai', $this->LuMianZhuangTai])
+           ->andFilterWhere(['like', 'DiWen', $this->DiWen])
+           ->andFilterWhere(['like', 'FuShe', $this->FuShe])
+           ->andFilterWhere(['like', 'GongDianFangShi', $this->GongDianFangShi])
+           ->andFilterWhere(['like', 'ShuJuChuanShuFangShi', $this->ShuJuChuanShuFangShi])
+           ->andFilterWhere(['like', 'SheZhiWeiZhi', $this->SheZhiWeiZhi])
+           ->andFilterWhere(['like', 'BeiZhu', $this->BeiZhu]);
+
+        return $dataProvider;
+    }
+}

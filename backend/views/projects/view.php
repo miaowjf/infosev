@@ -1,0 +1,53 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+/* @var $this yii\web\View */
+/* @var $model common\models\projects */
+
+$this->title = $model->ShouFeiXiangMuMingChen;
+$this->params['breadcrumbs'][] = ['label' => '收费项目管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->ShouFeiXiangMuMingChen;
+?>
+<div class="projects-view">
+
+    <h1><?= Html::encode($model->ShouFeiXiangMuMingChen) ?></h1>
+
+    <p>
+        <?= Html::a('修改', ['update', 'id' => $model->ShouFeiXiangMuBianHao], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('删除', ['delete', 'id' => $model->ShouFeiXiangMuBianHao], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => '是否删除此记录？',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'ShouFeiXiangMuBianHao',
+            'ShouFeiXiangMuMingChen',
+            'ShouFeiXiangMuXingZhi',
+            'ShouFeiXiangMuQiDianMingChen',
+            'ShouFeiXiangMuZhiDianMingChen',
+            'ShouFeiXiangMuJiShuDengJi',
+            'ShouFeiXiangMuXingZhengDengJi',
+            'GuanLiJingYingDanWeiMingChen',
+            'ZuZhiJiGouDaiMa',
+            'GuanLiJingYingDanWeiXingZhiBianMa',
+            'PiZhunShouFeiWenHao',
+            'ShouFeiPiFuWenJianMingChen',
+            'PiZhunShouFeiQiShiShiJian',
+            'PiZhunShouFeiZhongZhiShiJian',
+            'JianChengTongCheShiJian',
+            'ShiFuShuYuZhengFuHuaiDaiGongLuZhuanWeiDeJingYingXingGongLu',
+            'XianXingShouFeiBiaoZhunPiZhunShiJian',
+            'ShiFuTongDaiTongHuaiXiangMu',
+            'ShouFeiLiChengHeJi',
+        ],
+    ]) ?>
+
+</div>
