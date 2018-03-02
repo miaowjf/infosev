@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\url;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\sites */
@@ -55,7 +56,36 @@ foreach($filesname as $fn){
 ]) ?>
 </div>
  <div class="col-md-8">
+<div class="row">
+<?php
+$initpre=array();
+foreach(explode(',',substr($model->ZhaoPian,1)) as $initp){
+    $initpre[]= $initp=Url::to('uploadimages/').$initp;
+}
+
+echo FileInput::widget([
+    'name' => 'attachment_49[]',
+    'options'=>[
+        'multiple'=>true,
+    ],
+    'pluginOptions' => [
+        'showCancel'=>false,
+        'showUpload'=>false,
+        'showRemove'=>false,
+        'showBrowse'=>false,
+        'showCaption'=>false,
+        
+        'initialPreview'=>$initpre,
+        'initialPreviewAsData'=>true,
+        'initialPreviewShowDelete'=>false,
+        'overwriteInitial'=>false,
+    ]
+]);
+?>
+</div>
+<div class="row">
 <?php echo $this->render('mapindex',array('s'=>[$model->WeiDu,$model->JingDu,$model->ShouFeiZhanJianChen]))?>
+</div>
 </div>
 </div>
 </div>
