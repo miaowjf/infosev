@@ -13,8 +13,23 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'language'=>'zh-CN',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'admin'=>[
+            'class'=>'mdm\admin\Module',
+            'layout'=>'left-menu',
+        ]
+    ],
+    'as access'=>[
+        'class'=>'mdm\admin\components\AccessControl',
+        'allowActions'=>[
+            'site/*',//允许访问的节点，可自行添加
+            //'admin/*',//允许所有人访问admin节点及其其子节点
+        ]
+    ],
     'components' => [
+        'authManager'=>[
+            'class'=>'yii\rbac\DbManager',
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
