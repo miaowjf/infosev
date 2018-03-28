@@ -29,7 +29,7 @@ foreach($filesname as $fn){
 ?>
 <?php
 Modal::begin([
-    'header'=>'File Input inside Modal',
+    'header'=>'图片展示',
     'toggleButton' => [
         'label'=>'显示图片', 'class'=>'btn btn-info'
     ],

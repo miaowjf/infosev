@@ -55,10 +55,19 @@ use yii\Helpers\Url;
 
 <?= $form->field($model, 'imageFile[]')->widget(FileInput::classname(),
     [
-        'options'=> ['accept'=>'image/*','multiple' => true,'showUploadedThumbs'=>false],
+        'options'=> ['accept'=>'image/*','multiple' => true,'showUploadedThumbs'=>false,],
         'pluginOptions' => [
-            'uploadUrl' => Url::to(['/upload/images']),
+            //'uploadUrl' => Url::to(['/upload/images']),
             'maxFileCount' => 4,'showUpload'=>false,
+            //'browseClass'=>'hidden',隐藏浏览按钮
+            //'showBrowse'=>false,隐藏浏览按钮
+            /*不显示input框和button
+            'showCaption' => false,
+            'showRemove' => false,
+            'showUpload' => false,
+            'browseClass' => 'hidden',
+             */
+
         ],
     ]
 );?>

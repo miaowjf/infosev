@@ -35,7 +35,8 @@ Modal::begin([
     ],
 ]);
 $initpre=array();
-foreach(explode(',',substr($model->ZhaoPian,1)) as $initp){
+//foreach(explode(',',substr($model->ZhaoPian,1)) as $initp){
+foreach(explode(',',$model->ZhaoPian) as $initp){
     $initpre[]= $initp=Url::to('uploadimages/').$initp;
 }
 

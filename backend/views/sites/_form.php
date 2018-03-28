@@ -53,6 +53,7 @@ use yii\Helpers\Url;
  
    <?= $form->field($model, 'BeiZhu')->textInput(['maxlength' => true]) ?> 
 
+
 <?= $form->field($model, 'imageFile[]')->widget(FileInput::classname(),
     [
         'options'=> ['accept'=>'image/*','multiple' => true,'showUploadedThumbs'=>false,],
