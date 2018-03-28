@@ -25,12 +25,14 @@ class UploadController extends Controller
     {  
        $model = new sites();
             $images=UploadedFile::getInstances($model,'imageFile');
+            $names=array();
             foreach($images as $image){
                 $name=Yii::$app->getSecurity()->generateRandomString().$image->name;
-                $model->ZhaoPian=$model->ZhaoPian.','.$name.',';
+                $names[]=$name;
                 //$path=Yii::getAlias('@frontend').'/web/uploadimages/'.$name;
                 //$image->saveAs($path);
             }
+            $model->ZhaoPian=implode(',',$names);
        return json_encode(['error'=>$model->ZhaoPian]);
     }  
   

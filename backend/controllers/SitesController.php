@@ -120,7 +120,6 @@ class SitesController extends Controller
         $imagesname=explode(',',$model->ZhaoPian);
         if ($model->load(Yii::$app->request->post())) {
              $images=UploadedFile::getInstances($model,'imageFile');
-             $model->ZhaoPian='';
              $names=array();
             foreach($images as $image){
                 $name=Yii::$app->getSecurity()->generateRandomString().'.'.substr(strchr($image->name,'.'),1);
@@ -130,9 +129,11 @@ class SitesController extends Controller
                 $image->saveAs($path);
                 unset($image);
             }
-             $model->ZhaoPian=implode(',',$names);
+             if(count($images)!=0){
+             $model->ZhaoPian=implode(',',$names);}
              
             if($model->save()){ 
+                if(count($images)!=0){
                 foreach($imagesname as $image){
                     if ($image!==''){
                     $file_name = Yii::getAlias('@frontend').'/web/uploadimages/'.$image;
@@ -142,6 +143,7 @@ class SitesController extends Controller
                         unlink($file_name);
                     }
                     }
+                }
                 }
                 return $this->redirect(['view', 'id' => $model->ID]);
             }
