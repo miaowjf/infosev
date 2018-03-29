@@ -29,8 +29,9 @@ class UploadController extends Controller
             foreach($images as $image){
                 $name=Yii::$app->getSecurity()->generateRandomString().$image->name;
                 $names[]=$name;
-                //$path=Yii::getAlias('@frontend').'/web/uploadimages/'.$name;
-                //$image->saveAs($path);
+                $path=Yii::getAlias('@frontend').'/web/uploadimages/'.$name;
+                $image->saveAs($path);
+                unset($image);
             }
             $model->ZhaoPian=implode(',',$names);
        return json_encode(['error'=>$model->ZhaoPian]);
@@ -41,4 +42,7 @@ class UploadController extends Controller
      * @return string 
      */  
    
+    public function actionDelete(){
+
+    }
 } 

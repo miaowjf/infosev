@@ -42,4 +42,7 @@ class UploadController extends Controller
      * @return string 
      */  
    
+    public function actionDelete(){
+        return json_encode('');
+    }
 } 

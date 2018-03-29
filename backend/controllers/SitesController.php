@@ -130,9 +130,12 @@ class SitesController extends Controller
                 unset($image);
             }
              if(count($images)!=0){
-             $model->ZhaoPian=implode(',',$names);}
+                 $n=implode(',',$names);
+                 $model->ZhaoPian=$model->ZhaoPian.','.$n;
+             }
              
             if($model->save()){ 
+                /*
                 if(count($images)!=0){
                 foreach($imagesname as $image){
                     if ($image!==''){
@@ -145,6 +148,7 @@ class SitesController extends Controller
                     }
                 }
                 }
+                 */
                 return $this->redirect(['view', 'id' => $model->ID]);
             }
         }

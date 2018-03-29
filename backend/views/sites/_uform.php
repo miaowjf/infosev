@@ -63,12 +63,14 @@ foreach(explode(',',$model->ZhaoPian) as $initp){
 ?>
    <?= $form->field($model, 'imageFile[]')->widget(FileInput::classname(),
     [
-        'options'=> ['accept'=>'image/*','multiple' => true,'showUploadedThumbs'=>false,'showRemove'=>false,'uploadAsync'=>true],
+        'options'=> ['accept'=>'image/*','multiple' => true,'showUploadedThumbs'=>false],
         'pluginOptions' => [
+            'overwriteInitial'=>false,
             'initialPreview'=>$initpre,
             'initialPreviewAsData'=>true,
-            //'uploadUrl' => Url::to(['/upload/images']),
-            'maxFileCount' => 4,'showUpload'=>false,
+            //'uploadUrl' => Url::to(['/sites/update'']),
+            'maxFileCount' => 10,
+            'deleteUrl'=>Url::to(['/upload/delete']),
             //'browseClass'=>'hidden',隐藏浏览按钮
             //'showBrowse'=>false,隐藏浏览按钮
             /*不显示input框和button

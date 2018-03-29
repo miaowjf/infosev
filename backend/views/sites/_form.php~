@@ -53,12 +53,13 @@ use yii\Helpers\Url;
  
    <?= $form->field($model, 'BeiZhu')->textInput(['maxlength' => true]) ?> 
 
+
 <?= $form->field($model, 'imageFile[]')->widget(FileInput::classname(),
     [
         'options'=> ['accept'=>'image/*','multiple' => true,'showUploadedThumbs'=>false,],
         'pluginOptions' => [
-            //'uploadUrl' => Url::to(['/upload/images']),
-            'maxFileCount' => 4,'showUpload'=>false,
+            'uploadUrl' => Url::to(['/upload/images']),
+            'maxFileCount' => 10,'showUpload'=>false,
             //'browseClass'=>'hidden',隐藏浏览按钮
             //'showBrowse'=>false,隐藏浏览按钮
             /*不显示input框和button
