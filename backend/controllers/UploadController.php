@@ -43,6 +43,16 @@ class UploadController extends Controller
      */  
    
     public function actionDelete(){
+        $model=sites::findOne(\Yii::$app->request->post('key'));
+        $names=explode(',',$model->ZhaoPian);
+        $delval=\Yii::$app->request->post("filename");
+        unset($names[array_search($delval,$names)]);
+        $model->ZhaoPian=implode(',',$names);
+        $delfile=Yii::getAlias('@frontend').'/web/uploadimages/'.$delval;
+        if (file_exists($delfile)){
+            unlink($delfile);
+        }
+        $model->save();
         return json_encode('');
     }
 } 

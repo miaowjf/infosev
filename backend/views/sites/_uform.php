@@ -56,9 +56,13 @@ use yii\Helpers\Url;
 
 <?php
     $initpre=array();
+    $initialconf=array();
 //foreach(explode(',',substr($model->ZhaoPian,1)) as $initp){
 foreach(explode(',',$model->ZhaoPian) as $initp){
-    $initpre[]=Url::to('http://localhost:6001/uploadimages/').$initp;//需要网址
+    if (!empty($initp)){
+        $initpre[]=Url::to('http://localhost:6001/uploadimages/').$initp;//需要网址
+        $initialconf[]=['url'=>Url::to(['/upload/delete']),'key'=>$model->ID,'extra'=>['filename'=>$initp]];
+    }
 }
 ?>
    <?= $form->field($model, 'imageFile[]')->widget(FileInput::classname(),
@@ -68,9 +72,10 @@ foreach(explode(',',$model->ZhaoPian) as $initp){
             'overwriteInitial'=>false,
             'initialPreview'=>$initpre,
             'initialPreviewAsData'=>true,
-            //'uploadUrl' => Url::to(['/sites/update'']),
+            //'uploadUrl' => Url::to(['/upload/images']),
             'maxFileCount' => 10,
-            'deleteUrl'=>Url::to(['/upload/delete']),
+            //'deleteUrl'=>Url::to(['/upload/delete']),
+            'initialPreviewConfig'=>$initialconf,
             //'browseClass'=>'hidden',隐藏浏览按钮
             //'showBrowse'=>false,隐藏浏览按钮
             /*不显示input框和button
